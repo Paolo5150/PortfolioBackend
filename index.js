@@ -18,8 +18,6 @@ if(process.env.NODE_ENV==='production')
   serviceAccount = JSON.parse(process.env.service_account)
 }
 
-
-
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://chatty-sfjb.firebaseio.com"
