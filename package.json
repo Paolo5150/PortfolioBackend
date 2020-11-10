@@ -1,0 +1,15 @@
+{
+  "name": "chatbot",
+  "version": "1.0.0",
+  "description": "A simple chatbot!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\u0016https://github.com/Paolo5150/Chatbot.git"
+  },
+  "author": "Paolo Ferri",
+  "license": "ISC"
+}
