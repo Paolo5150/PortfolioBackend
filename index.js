@@ -12,6 +12,10 @@ const app = express()
 app.use(bodyParser.json());
 const port = process.env.PORT || 3000;
 
+if(serviceAccount === undefined)
+{
+  serviceAccount = JSON.parse(process.env.service_account)
+}
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
