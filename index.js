@@ -3,7 +3,7 @@ const functions = require('firebase-functions');
 const express = require('express');
 const bodyParser = require('body-parser');
 const {WebhookClient} = require('dialogflow-fulfillment');
-const serviceAccount = require('./serviceAccount.json');
+var serviceAccount = require('./serviceAccount.json');
 const cors = require('cors');
 const dialogflow  = require('dialogflow');
 const { response } = require("express");
@@ -16,8 +16,11 @@ const port = process.env.PORT || 3000;
 if(process.env.NODE_ENV==='production')
 {
   serviceAccount = JSON.parse(process.env.service_account)
-  console.log(serviceAccount)
+console.log(serviceAccount)
+
 }
+
+
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
