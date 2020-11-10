@@ -11,5 +11,8 @@
     "url": "\u0016https://github.com/Paolo5150/Chatbot.git"
   },
   "author": "Paolo Ferri",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dialogflow": "^1.2.0"
+  }
 }
