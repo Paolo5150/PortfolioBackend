@@ -12,8 +12,8 @@ const app = express()
 app.use(bodyParser.json());
 const port = process.env.PORT || 3000;
 
-console.log("SA " + serviceAccount)
-if(serviceAccount === null)
+
+if(process.env.NODE_ENV)
 {
   serviceAccount = JSON.parse(process.env.service_account)
   console.log(serviceAccount)
