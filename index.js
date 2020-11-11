@@ -10,6 +10,7 @@ const { response } = require("express");
 const app = express()
 
 app.use(bodyParser.json());
+app.use(cors())
 const port = process.env.PORT || 3000;
 
 var serviceAccount;
@@ -28,37 +29,26 @@ admin.initializeApp({
 })
 
 
-async function runSample(projectId = 'chatty-sfjb') {
+async function runSample(projectId = 'chatty-sfjb', request, response) {
     // A unique identifier for the given session
     const sessionId = 'dasd'
   
+    var req = request.body;
     // Create a new session
     const sessionClient = new dialogflow.SessionsClient({credential: serviceAccount});
-  const sessionPath = sessionClient.sessionPath('chatty-sfjb','dasd');
+    const sessionPath = sessionClient.sessionPath('chatty-sfjb','dasd');
+    req.session = sessionPath;
   
-    // The text query request.
-    const request = {
-      session: sessionPath,
-      queryInput: {
-        event: {
-          "name": 'Welcome',
-          "languageCode": 'en-US'
-        },
-        /*text: {          
-          text: ' ',
-          languageCode: 'en-US',          
-        },*/
-      },
-    };
-  
+
     // Send request and log result
-    const responses = await sessionClient.detectIntent(request);
+    const responses = await sessionClient.detectIntent(req);
 
     
     console.log('Detected intent');
     const result = responses[0].queryResult;
     console.log(`  Query: ${result.queryText}`);
     console.log(`  Response: ${result.fulfillmentText}`);
+    response.send(result.fulfillmentText)
     if (result.intent) {
       console.log(`  Intent: ${result.intent.displayName}`);
     } else {
@@ -68,7 +58,7 @@ async function runSample(projectId = 'chatty-sfjb') {
 
 // This is the callback used when the user sends a message in
 app.post('/dialogflow-in', (request, response) => {
- runSample('chatty-sfjb')
+ runSample('chatty-sfjb', request, response)
 
 })
 
@@ -78,9 +68,6 @@ app.post('/dialogflow-fulfillment', (request, response) => {
     //console.log("got " + request.body)
 })
 
-app.get('/', (request, response) => {
-    console.log("home")
-})
 
 app.listen(port, ()=>{
     console.log(`Listening to port ${port}`)
@@ -88,15 +75,14 @@ app.listen(port, ()=>{
 })
 
 const dialogflowFulfillment = (request, response) =>{
-   console.log("fullfilled!")
     const agent = new WebhookClient({request, response});
 
-    function sayHi(agent) {
-        agent.add("Hi madafaca")
+    function ConfirmEmailChange(agent) {
+      agent.add(request.body.queryResult.fulfillmentText) //Use the responses set on Dialogflow console
     }
 
 
     let intentMap = new Map();
-    intentMap.set("UpdateProfile", sayHi);
+    intentMap.set("UpdateProfile - yes", ConfirmEmailChange);
     agent.handleRequest(intentMap);
 }
