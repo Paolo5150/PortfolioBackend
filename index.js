@@ -66,28 +66,13 @@ async function runSample(projectId = 'chatty-sfjb') {
     }
   }
 
-
+// This is the callback used when the user sends a message in
 app.post('/dialogflow-in', (request, response) => {
- console.log('WTF')
  runSample('chatty-sfjb')
-  /*  cors(request, response, async ()=> {
-        await sleep(1000)
-        response.send('daaaiaii') 
-        const {queryInput, sessionID} = request.body;
-
-        const sessionClient = new SessionClient({credential: serviceAccount});
-        const session = sessionClient.sessionPath('chatty-sfjb',sessionID);
-        const responses = await sessionClient.detectIntent({session, queryInput});
-        const result = responses[0].queryResult;
-        response.send(result);
-        console.log(result)
-    })*/
-
 
 })
 
-
-//Receive intents
+//This is called when there is a fulfillment with a webhook attached
 app.post('/dialogflow-fulfillment', (request, response) => {
     dialogflowFulfillment(request, response);
     //console.log("got " + request.body)
