@@ -38,19 +38,23 @@ async function runSample(projectId = 'chatty-sfjb') {
   
     // The text query request.
     const request = {
-        session: sessionPath,
+      session: sessionPath,
       queryInput: {
-        text: {
-          // The query to send to the dialogflow agent
-          text: 'Change my email',
-          // The language used by the client (en-US)
-          languageCode: 'en-US',
+        event: {
+          "name": 'Welcome',
+          "languageCode": 'en-US'
         },
+        /*text: {          
+          text: ' ',
+          languageCode: 'en-US',          
+        },*/
       },
     };
   
     // Send request and log result
     const responses = await sessionClient.detectIntent(request);
+
+    
     console.log('Detected intent');
     const result = responses[0].queryResult;
     console.log(`  Query: ${result.queryText}`);
@@ -99,11 +103,13 @@ app.listen(port, ()=>{
 })
 
 const dialogflowFulfillment = (request, response) =>{
+   console.log("fullfilled!")
     const agent = new WebhookClient({request, response});
 
     function sayHi(agent) {
         agent.add("Hi madafaca")
     }
+
 
     let intentMap = new Map();
     intentMap.set("UpdateProfile", sayHi);
