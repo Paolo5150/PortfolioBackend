@@ -68,7 +68,7 @@ app.post('/dialogflow-fulfillment', (request, response) => {
     //console.log("got " + request.body)
 })
 
-app.get('/checking-in', (request, response) => {
+app.post('/checking-in', (request, response) => {
   response.send('ok')
  })
 
