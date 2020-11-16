@@ -68,6 +68,9 @@ app.post('/dialogflow-fulfillment', (request, response) => {
     //console.log("got " + request.body)
 })
 
+app.get('/checking-in', (request, response) => {
+  response.send('ok')
+ })
 
 app.listen(port, ()=>{
     console.log(`Listening to port ${port}`)
