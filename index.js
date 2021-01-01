@@ -3,7 +3,7 @@ const functions = require('firebase-functions');
 const express = require('express');
 const bodyParser = require('body-parser');
 const {WebhookClient} = require('dialogflow-fulfillment');
-
+const fs = require('fs');
 const cors = require('cors');
 const dialogflow  = require('dialogflow');
 const { response } = require("express");
@@ -70,6 +70,16 @@ app.post('/dialogflow-fulfillment', (request, response) => {
 
 app.post('/checking-in', (request, response) => {
   response.send('ok')
+ })
+
+ app.post('/loadImage', (request, response) => {
+
+  let fileData = fs.readFileSync('./Alexs_Apt_2k.hdr').toString('hex');
+  let result = []
+  for (var i = 0; i < fileData.length; i+=2)
+    result.push('0x'+fileData[i]+''+fileData[i+1])
+
+  response.send(result)
  })
 
 app.listen(port, ()=>{
