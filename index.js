@@ -74,12 +74,16 @@ app.post('/checking-in', (request, response) => {
 
  app.post('/loadImage', (request, response) => {
 
-  let fileData = fs.readFileSync('./Alexs_Apt_2k.hdr').toString('hex');
-  let result = []
-  for (var i = 0; i < fileData.length; i+=2)
-    result.push('0x'+fileData[i]+''+fileData[i+1])
-
+  var request = require('request').defaults({encoding: 'hex'});
+  request.get('https://twinkllinjeweles.000webhostapp.com/Alexs_Apt_2k.hdr', function (err, res, body) {
+    let result = []
+    for (var i = 0; i < body.length; i+=2)
+      result.push('0x'+body[i]+''+body[i+1])
   response.send(result)
+
+  });
+
+
  })
 
 app.listen(port, ()=>{
