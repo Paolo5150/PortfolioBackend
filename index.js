@@ -86,6 +86,20 @@ app.post('/checking-in', (request, response) => {
 
  })
 
+ app.get('/testLoadImage', (request, response) => {
+
+  var request = require('request').defaults({encoding: 'hex'});
+  request.get('https://twinkllinjeweles.000webhostapp.com/Alexs_Apt_2k.hdr', function (err, res, body) {
+    let result = []
+    for (var i = 0; i < body.length; i+=2)
+      result.push('0x'+body[i]+''+body[i+1])
+  response.send(result)
+
+  });
+
+
+ })
+
 app.listen(port, ()=>{
     console.log(`Listening to port ${port}`)
 
