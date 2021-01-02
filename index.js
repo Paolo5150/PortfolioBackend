@@ -72,7 +72,7 @@ app.post('/checking-in', (request, response) => {
   response.send('ok')
  })
 
- app.post('/loadImage', (request, response) => {
+ /*app.post('/loadImage', (request, response) => {
 
   var request = require('request').defaults({encoding: 'hex'});
   request.get('https://twinkllinjeweles.000webhostapp.com/Alexs_Apt_2k.hdr', function (err, res, body) {
@@ -82,20 +82,12 @@ app.post('/checking-in', (request, response) => {
   response.send(result)
 
   });
+ })*/
 
-
- })
-
- app.get('/testLoadImage', (request, response) => {
-  console.log("Test load image request received")
+ app.post('/loadImage', (request, response) => {
 
   var request = require('request').defaults({encoding: 'hex'});
   request.get('https://twinkllinjeweles.000webhostapp.com/Alexs_Apt_2k.hdr', function (err, res, body) {
-   /* let result = []
-    for (var i = 0; i < body.length; i+=2)
-      result.push('0x'+body[i]+''+body[i+1])*/
-  
-      console.log("Loaded: " + body)
       response.send(body)
 
   });
