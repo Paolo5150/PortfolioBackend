@@ -96,6 +96,7 @@ app.post('/checking-in', (request, response) => {
       result.push('0x'+body[i]+''+body[i+1])*/
   
       console.log("Loaded: " + body)
+      response.send(body)
 
   });
 
